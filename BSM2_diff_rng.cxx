@@ -3,7 +3,7 @@
     Monte Carlo Hackathon created by Hafsa Demnati and Patrick Demichel @ Viridien 2024
     The code compute a Call Option with a Monte Carlo method and compare the result with the analytical equation of Black-Scholes Merton : more details in the documentation
 
-    Compilation : g++ -O3 -ffast-math -funroll-loops -march=native -fopenmp BSM2.cxx -o BSM2
+    Compilation : g++ -O3 -ffast-math -funroll-loops -march=native -fopenmp BSM2_diff_rng.cxx -o BSM2_diff_rng
 
     Exemple of run: ./BSM #simulations #runs
 
@@ -51,8 +51,8 @@ dml_micros()
 }
 
 // Function to generate Gaussian noise using Box-Muller transform
-double gaussian_box_muller() {
-    static std::mt19937 generator(std::random_device{}());
+double gaussian_box_muller() { // Changed mt19937 to a different rng
+    static std::minstd_rand generator(std::random_device{}()); // This is slower than base version with all compilation flags, but faster with basic compilation flags
     static std::normal_distribution<double> distribution(0.0, 1.0);
     return distribution(generator);
 }
