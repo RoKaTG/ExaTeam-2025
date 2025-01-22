@@ -37,12 +37,15 @@ Global initial seed: 4208275479      argv[1]= 100     argv[2]= 1000000
 #include <limits>
 #include <algorithm>
 #include <iomanip>   // For setting precision
+#include "include/fast_sin.h"
 
 #define ui64 u_int64_t
 
 #define PI 3.141592653589793
 #define D_PI 2.0 * PI
 #define i4_HUGE 2147483647
+
+#define MASK ~(1 << 31)
 
 #include <sys/time.h>
 double
@@ -65,7 +68,9 @@ double gaussian_box_muller() {
     return distribution(generator);
 }
 
-double r8_uniform_01(int &seed) {
+FastSin fSin;
+
+inline double r8_uniform_01(int &seed) {
     int k;
     double r;
 
@@ -73,7 +78,8 @@ double r8_uniform_01(int &seed) {
 
     seed = 16807 * ( seed - k * 127773 ) - k * 2836;
 
-    seed = (seed < 0) ? seed + i4_HUGE : seed;
+    //seed = (seed < 0) ? seed + i4_HUGE : seed;
+    seed = (seed ^ (seed >> 31)); // 
     r = (double)(seed) * 4.656612875E-10;
 
     return r;
@@ -86,7 +92,7 @@ double r8_normal_01(int &seed) {
 
     r1 = r8_uniform_01 (seed);
     r2 = r8_uniform_01 (seed);
-    x = sqrt ( - 2.0 * log(r1) ) * cos( 2.0 * PI * r2 );
+    x = sqrt ( - 2.0 * log(r1) ) * fSin(2.0 * PI * r2 );
 
     return x;
 }
@@ -96,10 +102,11 @@ double r8_normal_01(int &seed) {
 double black_scholes_monte_carlo(ui64 S0, ui64 K, double T, double r, double sigma, double q, ui64 num_simulations) {
     double sum_payoffs = 0.0;
     int seed = std::random_device{}();
-    seed = (seed < 0) ? seed + i4_HUGE : seed;
+    seed = seed & MASK;
     for (ui64 i = 0; i < num_simulations; ++i) {
         double Z = r8_normal_01(seed);
         seed = seed << 1;
+        seed = seed & MASK;
         double ST = S0 * exp((r - q - 0.5 * sigma * sigma) * T + sigma * sqrt(T) * Z);
         double payoff = std::max(ST - K, 0.0);
         sum_payoffs += payoff;
@@ -131,6 +138,7 @@ int main(int argc, char* argv[]) {
     unsigned long long global_seed = rd();  // This will be the global seed
 
     std::cout << "Global initial seed: " << global_seed << "      argv[1]= " << argv[1] << "     argv[2]= " << argv[2] <<  std::endl;
+    FastSin f1;
 
     double sum=0.0;
     double t1=dml_micros();
