@@ -3,7 +3,7 @@
     Monte Carlo Hackathon created by Hafsa Demnati and Patrick Demichel @ Viridien 2024
     The code compute a Call Option with a Monte Carlo method and compare the result with the analytical equation of Black-Scholes Merton : more details in the documentation
 
-    Compilation : g++ -O3 -ffast-math -funroll-loops -march=native -fopenmp BSM2.cxx ziggurat_inline.cpp -o BSM2_ziggurat
+    Compilation : g++ -O3 -ffast-math -funroll-loops -march=native -fopenmp BSM2_ziggurat.cxx ziggurat_inline.cpp -o BSM2_ziggurat
 
     Exemple of run: ./BSM #simulations #runs
 
@@ -97,7 +97,9 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Global initial seed: " << global_seed << "      argv[1]= " << argv[1] << "     argv[2]= " << argv[2] <<  std::endl;
 
-    r4_nor_setup();
+
+    zigset(global_seed, global_seed, global_seed, global_seed);
+    //r4_nor_setup();
     
 
     double sum=0.0;
