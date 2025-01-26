@@ -1,6 +1,7 @@
 #!/bin/bash
 
-g++ -O BSM.cxx -o BSM
+cd BSM
+g++ -O BSM2.cxx -o BSM
 armclang++ -g3 -Ofast -fopenmp -march=armv9-a+simd+fp16 -mcpu=neoverse-v2 -funroll-loops -ffast-math -fvectorize -larmpl -lamath -lm BSM_openmp.cxx -o BSM_openmp
 armclang++ -g3 -Ofast -fopenmp -march=armv9-a+simd+fp16 -mcpu=neoverse-v2 -funroll-loops -ffast-math -fvectorize -larmpl -lamath -lm BSM_mpi.cxx -o BSM_mpi
 armclang++ -g3 -Ofast -fopenmp -march=armv9-a+simd+fp16 -mcpu=neoverse-v2 -funroll-loops -ffast-math -fvectorize -larmpl -lamath -lm BSM_open_mpi.cxx -o BSM_open_mpi
