@@ -10,7 +10,7 @@ This repository contains our solutions and optimizations for the Monte Carlo Bla
 
 - **Msilini Yassine**  
 - **Sofiane Arhab**  
-- **Matheo Pasquier**  
+- **Mateo Pasquier**  
 - **Ahmed Taleb Bechir**
 
 ---
