@@ -1,5 +1,6 @@
 #include <iostream>
-#include <cmath>
+#include <amath.h>
+#include <armpl.h>
 #include <cstdint>
 #include <omp.h>
 #include <sys/time.h>
