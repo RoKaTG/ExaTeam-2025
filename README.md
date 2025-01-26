@@ -97,6 +97,8 @@ Scalability results (e.g., scaling efficiency as threads/processes increase) are
 - **Arm Compiler for Linux (ACfL)**: Utilized for architecture-specific optimizations, significantly outperforming GCC in final benchmarks.  
 - **SLURM Integration**: Automated job submission scripts for benchmarking and scalability analysis.  
 
+## Notes
+- Note that to see all the version of our random generator, You need to check the RNG branch.
 ---
 
 ## Performance Results
