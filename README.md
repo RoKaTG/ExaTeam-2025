@@ -48,7 +48,7 @@ The root directory contains the necessary scripts to compile and benchmark the c
 
 ### 1. **Compiling the Code**
 
-To compile all versions of the code (the slurms script already execute the `benchmark.slurm` script), run:
+To compile all versions of the code (the slurms script already execute the `compile.sh` script), run:
 
 ```bash
 ./compile.sh
