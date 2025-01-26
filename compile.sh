@@ -9,3 +9,4 @@ armclang++ -g3 -Ofast -fopenmp -march=armv9-a+simd+fp16 -mcpu=neoverse-v2 -funro
 armclang++ -g3 -Ofast -fopenmp -march=armv9-a+simd+fp16 -mcpu=neoverse-v2 -funroll-loops -ffast-math -fvectorize -larmpl -lamath -lm BSM_SVE.cxx -o BSM_SVE
 armclang++ -g3 -Ofast -fopenmp -march=armv9-a+simd+fp16 -mcpu=neoverse-v2 -funroll-loops -ffast-math -fvectorize -larmpl -lamath -lm BSM_assembly.cxx -o BSM_assembly
 armclang++ -g3 -Ofast -fopenmp -march=armv9-a+simd+fp16 -mcpu=neoverse-v2 -funroll-loops -ffast-math -fvectorize -larmpl -lamath -lm BSM_final.cxx -o BSM_final
+g++ -g3 -Ofast -fopenmp -march=armv9-a+simd+fp16 -mcpu=neoverse-v2 -funroll-loops -ffast-math -ftree-vectorize -frename-registers -I$ARMPL_DIR/include -L$ARMPL_DIR/lib -larmpl_mp -L$ARMPL_DIR/lib -lamath  BSM_final_gcc.cxx -o BSM_final_gcc
